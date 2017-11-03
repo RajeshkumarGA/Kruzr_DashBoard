@@ -1,0 +1,129 @@
+application: dashboardkruzr
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+
+- url: /css
+  static_dir: css
+
+- url: /apicalls
+  static_dir: apicalls
+
+- url: /controller
+  static_dir: controller
+
+- url: /Data
+  static_dir: Data
+
+- url: /img
+  static_dir: img
+
+- url: /pug
+  static_dir: pug
+
+- url: /scss
+  static_dir: sass
+
+- url: /services
+  static_dir: services
+
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /vendor
+  static_dir: vendor
+
+- url: /views
+  static_dir: views
+
+- url: /js
+  static_dir: js
+
+- url: /index
+  script: index.html
+
+- url: /admin.html
+  script: admin.html
+
+- url: /charts.html
+  script: charts.html
+
+- url: /dashboard.html
+  script: dashboard.html
+
+- url: /table.html
+  script: table.html
+
+- url: /dashboard
+  script: chart_sample.html
+  
+- url: /chart_data\.php
+  script: chart_data.php
+
+- url: /config\.php
+  script: config.php
+
+- url: /activeusers\.php
+  script: activeusers.php
+
+- url: /barcharts\.php
+  script: barcharts.php
+
+- url: /dailydownloads\.php
+  script: dailydownloads.php
+
+- url: /linecharts\.php
+  script: linecharts.php
+
+- url: /totaldownloads\.php
+  script: totaldownloads.php
+
+- url: /linechartdetails\.php
+  script: linechartdetails.php
+
+- url: /barchartdetails\.php
+  script: barchartdetails.php
+
+- url: /piechartdetails\.php
+  script: piechartdetails.php
+
+- url: /getgenders\.php
+  script: getgenders.php
+
+- url: /admin\.php
+  script: admin.php
+
+- url: /totalactiveusers\.php
+  script: totalactiveusers.php
+
+- url: /ageGroups\.php
+  script: ageGroups.php
+
+- url: /ageGroupsData\.php
+  script: ageGroupsData.php
+
+- url: /DAU\.php
+  script: DAU.php
+
+- url: /MAU\.php
+  script: MAU.php
+
+- url: /WAU\.php
+  script: WAU.php
+
+- url: /retentionRate\.php
+  script: retentionRate.php
+
+- url: /retentionRateData\.php
+  script: retentionRateData.php
+
+
+
+
