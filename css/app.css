@@ -1,0 +1,89 @@
+.modal-dialog{
+	max-width:80%;
+}
+section{
+	padding:3%;
+}
+table{
+	border: 2px solid black;
+}
+table tr td {
+	padding:2px;
+	border:1px solid black;
+}
+table tr:nth-child(odd) {
+	background-color: #e4e4e4;
+
+}
+.modal-body img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+.loginField{
+	margin-top: 2%;
+}
+.section{
+	margin-top: 2%;
+	padding: 2%;
+}
+@media only screen and (min-width:100px) and (max-width: 320px){
+	.modal-body{
+		overflow: scroll;
+		height: 200px;
+	}
+
+
+} 
+
+@media only screen and (min-width:320px) and (max-width: 480px){
+	.modal-body{
+		overflow: scroll;
+		height: 400px;
+	}
+	.loginDiv{
+		width: 250px;
+		position: relative;
+		margin: 0 auto;
+		background-color: #0d2e4d;
+		color: white;
+		box-shadow: 10px 10px 5px #888888; 
+		padding: 3%;
+	} 
+
+} 
+
+@media only screen and (min-width:480px) and (max-width: 720px){
+	.modal-body{
+		overflow: scroll;
+		height: 500px;
+	}
+	.loginDiv{
+		width: 400px;
+		position: relative;
+		margin: 0 auto;
+		background-color: #0d2e4d;
+		color: white;
+		box-shadow: 10px 10px 5px #888888; 
+		padding: 3%;
+	} 
+
+} 
+@media only screen and (min-width:720px) {
+	.modal-body{
+		overflow: scroll;
+		height: 500px;
+	}
+	.loginDiv{
+		width: 600px;
+		position: relative;
+		margin: 0 auto;
+		background-color: #0d2e4d;
+		color: white;
+		box-shadow: 10px 10px 5px #888888; 
+		padding: 3%;
+	} 
+
+} 
+
+
