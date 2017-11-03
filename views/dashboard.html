@@ -1,0 +1,854 @@
+<!-- Start of Cards section -->
+
+<section  ng-controller="dashboardController">
+<!-- Top 4 cards -->
+  <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-download"></i>
+              </div>
+              <div class="mr-5"><p align="center">{{dailyDownloadsCount}}</p>
+                <p align="center">Today's Users</p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#dailyDownloadsModal">
+              <span class="float-left">View</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5"><p align="center">{{totalDownloadsCount}}</p>
+                <p align="center">Total Users</p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#totalDownloadsModal">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-user"></i>
+              </div>
+              <div class="mr-5"><p align="center">{{activeUsersCount}}</p>
+                <p align="center">Active users</p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#activeUsersModal">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-support"></i>
+              </div>
+              <div class="mr-5"><p align="center">26</p>
+                <p align="center">New Bugs </p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+  </div>
+<!-- Next 3 cards -->
+  <div class="row">
+
+        <div class="col-xl-4 col-sm-6 mb-3">
+          <div class="card text-white o-hidden h-100" style="background-color: #D1797E;">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-users"></i>
+              </div>
+              <div class="mr-5"><p align="center">{{dailyActiveUsersCount}}</p>
+                <p align="center">Daily Active Users</p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#dailyActiveUsers">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-4 col-sm-6 mb-3">
+          <div class="card text-white o-hidden h-100" style="background-color: #AF7AC5;">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-users"></i>
+              </div>
+              <div class="mr-5"><p align="center">{{weeklyActiveUsersCount}}</p>
+                <p align="center">Weekly Active Users</p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#weeklyActiveusersModal">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-4 col-sm-6 mb-3">
+          <div class="card text-white o-hidden h-100" style="background-color:#7C703B;">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-users"></i>
+              </div>
+              <div class="mr-5"><p align="center">{{monthlyActiveUsersCount}}</p>
+                <p align="center">Monthly Active Users</p></div>
+            </div>
+            <a class="card-footer text-white clearfix small z-1" data-toggle="modal" data-target="#monthlyActiveUsers">
+              <span class="float-left">View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+  </div>
+        
+        
+<!-- Daily Downloads model-->
+  <div id="dailyDownloadsModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Total Downloads</h4>
+                      <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <img ng-src="img/loading.gif" ng-if="loadingImg">
+                         <div class="card mb-3">
+                    <div class="card-header">
+                      <i class="fa fa-table"></i> Data Table </div>
+                    <div class="card-body">
+                      <label>Row Count : </label> <select ng-model="selectedPerPageValueDailyDownloads" ng-change="perPageChange(selectedPerPageValueDailyDownloads,1)"><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+                      <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTableDailyUsers" width="100%" cellspacing="0">
+                          <thead>
+                            <tr>
+                              <th ng-click='sortBy(1)'>Name</th>
+                              <th ng-click='sortBy(2)'>Email</th>
+                              <th ng-click='sortBy(3)'>Phone</th>
+                              <th ng-click='sortBy(4)'>Gender</th>
+                              <th ng-click='sortBy(5)'>Created At</th>
+                            </tr>
+                          </thead>
+                          <tfoot>
+                           <tr>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Gender</th>
+                              <th>Created At</th>
+                            </tr>
+                          </tfoot>
+                          <tbody>
+                            <tr ng-repeat="rows in dailyDownloadsConcolatedData | orderBy : filterVariable :reverse">
+                              <td>{{rows.userName}}</td>
+                              <td>{{rows.userEmail}}</td>
+                              <td>{{rows.userPhone}}</td>
+                              <td>{{rows.userGender}}</td>
+                              <td>{{rows.userCreatedAt}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" export-to-csv-total-downloads><i class="fa fa-download" aria-hidden="true"></i></button>
+                </div>
+           </div>
+           </div>
+  </div>
+
+<!-- Total Downlods Modal-->
+  <div id="totalDownloadsModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Total Downloads</h4>
+                      <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <img ng-src="img/loading.gif" ng-if="loadingImg">
+                         <div class="card mb-3">
+                      <div class="card-header">
+                        <i class="fa fa-table"></i> Data Table </div>
+                      <div class="card-body">
+                        <label>Row Count : </label> <select ng-model="selectedPerPageValueTotalDownloads" ng-change="perPageChange(selectedPerPageValueTotalDownloads,2)"><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTableTotalUsers" width="100%" cellspacing="0">
+                            <thead>
+                              <tr>
+                                <th ng-click='sortBy(1)'>Name</th>
+                                <th ng-click='sortBy(2)'>Email</th>
+                                <th ng-click='sortBy(3)'>Phone</th>
+                                <th ng-click='sortBy(4)'>Gender</th>
+                                <th ng-click='sortBy(5)'>Created At</th>
+                              </tr>
+                            </thead>
+                            <tfoot>
+                             <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Gender</th>
+                                <th>Created At</th>
+                              </tr>
+                            </tfoot>
+                            <tbody>
+                              <tr ng-repeat="rows in totalDownloadsConcolatedData | orderBy : filterVariable :reverse">
+                                <td>{{rows.userName}}</td>
+                                <td>{{rows.userEmail}}</td>
+                                <td>{{rows.userPhone}}</td>
+                                <td>{{rows.userGender}}</td>
+                                <td>{{rows.userCreatedAt}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary" export-to-csv-total-downloads><i class="fa fa-download" aria-hidden="true"></i></button>
+                </div>
+           </div>
+           </div>
+  </div>
+
+<!-- Active Users Data model-->
+  <div id="activeUsersModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Active Users</h4>
+                      <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <img ng-src="img/loading.gif" ng-if="loadingImg">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                          <i class="fa fa-table"></i> Data Table </div>
+                        <div class="card-body">
+                          <label>Row Count : </label> <select ng-model="selectedPerPageValueActiveUsers" ng-change="perPageChange(selectedPerPageValueActiveUsers,3)"><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+                          <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTableActiveUsers" width="100%" cellspacing="0">
+                              <thead>
+                                <tr>
+                                  <th ng-click='sortBy(1)'>Name</th>
+                                  <th ng-click='sortBy(2)'>Email</th>
+                                  <th ng-click='sortBy(3)'>Phone</th>
+                                  <th ng-click='sortBy(4)'>Gender</th>
+                                  <th ng-click='sortBy(5)'>Created At</th>
+                                </tr>
+                              </thead>
+                              <tfoot>
+                               <tr>
+                                  <th>Name</th>
+                                  <th>Email</th>
+                                  <th>Phone</th>
+                                  <th>Gender</th>
+                                  <th>Created At</th>
+                                </tr>
+                              </tfoot>
+                              <tbody>
+                                <tr ng-repeat="rows in activeUsersConcolatedData | orderBy : filterVariable :reverse">
+                                  <td>{{rows.userName}}</td>
+                                  <td>{{rows.userEmail}}</td>
+                                  <td>{{rows.userPhone}}</td>
+                                  <td>{{rows.userGender}}</td>
+                                  <td>{{rows.userCreatedAt}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                 <button class="btn btn-primary" export-to-csv-active-users><i class="fa fa-download" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            </div>
+  </div>
+
+<!-- Weekly Active Users Modal -->
+  <div id="weeklyActiveusersModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Weekly Active Active Users</h4>
+                      <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                          <img ng-src="img/loading.gif" ng-if="loadingImg">
+                          <div class="card mb-3">
+                            <div class="card-header">
+                              <i class="fa fa-table"></i> Data Table </div>
+                            <div class="card-body">
+                              <label>Row Count : </label> <select ng-model="selectedPerPageValueActiveUsers" ng-change="perPageChange(selectedPerPageValueActiveUsers,4)"><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+                              <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTableWeeklyActiveUsers" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th ng-click='sortBy(1)'>Name</th>
+                                      <th ng-click='sortBy(2)'>Email</th>
+                                      <th ng-click='sortBy(3)'>Phone</th>
+                                      <th ng-click='sortBy(4)'>Gender</th>
+                                      <th ng-click='sortBy(5)'>Created At</th>
+                                    </tr>
+                                  </thead>
+                                  <tfoot>
+                                   <tr>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Phone</th>
+                                      <th>Gender</th>
+                                      <th>Created At</th>
+                                    </tr>
+                                  </tfoot>
+                                  <tbody>
+                                    <tr ng-repeat="rows in weeklyActiveUsersConcolatedData | orderBy : filterVariable :reverse">
+                                      <td>{{rows.userName}}</td>
+                                      <td>{{rows.userEmail}}</td>
+                                      <td>{{rows.userPhone}}</td>
+                                      <td>{{rows.userGender}}</td>
+                                      <td>{{rows.userCreatedAt}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <button class="btn btn-primary" export-to-csv-weekly-active-users><i class="fa fa-download" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            </div>
+  </div>
+
+<!-- Monthly Active Users Modal -->
+  <div id="monthlyActiveUsers" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Monthly Active Active Users</h4>
+                      <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                          <img ng-src="img/loading.gif" ng-if="loadingImg">
+                          <div class="card mb-3">
+                            <div class="card-header">
+                              <i class="fa fa-table"></i> Data Table </div>
+                            <div class="card-body">
+                              <label>Row Count : </label> <select ng-model="selectedPerPageValueActiveUsers" ng-change="perPageChange(selectedPerPageValueActiveUsers,5)"><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+                              <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTableMonthlyActiveUsers" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th ng-click='sortBy(1)'>Name</th>
+                                      <th ng-click='sortBy(2)'>Email</th>
+                                      <th ng-click='sortBy(3)'>Phone</th>
+                                      <th ng-click='sortBy(4)'>Gender</th>
+                                      <th ng-click='sortBy(5)'>Created At</th>
+                                    </tr>
+                                  </thead>
+                                  <tfoot>
+                                   <tr>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Phone</th>
+                                      <th>Gender</th>
+                                      <th>Created At</th>
+                                    </tr>
+                                  </tfoot>
+                                  <tbody>
+                                    <tr ng-repeat="rows in monthlyActiveUsersConcolatedData| orderBy : filterVariable :reverse">
+                                      <td>{{rows.userName}}</td>
+                                      <td>{{rows.userEmail}}</td>
+                                      <td>{{rows.userPhone}}</td>
+                                      <td>{{rows.userGender}}</td>
+                                      <td>{{rows.userCreatedAt}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <button class="btn btn-primary" export-to-csv-monthly-active-users><i class="fa fa-download" aria-hidden="true"></i></button>
+                </div>
+           </div>
+           </div>
+  </div>
+
+<!-- Daily Active Users Modal -->
+  <div id="dailyActiveUsers" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h4 class="modal-title">Daily Active Active Users</h4>
+                      <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                          <img ng-src="img/loading.gif" ng-if="loadingImg">
+                          <div class="card mb-3">
+                            <div class="card-header">
+                              <i class="fa fa-table"></i> Data Table </div>
+                            <div class="card-body">
+                              <label>Row Count : </label> <select ng-model="selectedPerPageValueActiveUsers" ng-change="perPageChange(selectedPerPageValueActiveUsers,6)"><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+                              <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTableDailyActiveUsers" width="100%" cellspacing="0">
+                                  <thead>
+                                    <tr>
+                                      <th ng-click='sortBy(1)'>Name</th>
+                                      <th ng-click='sortBy(2)'>Email</th>
+                                      <th ng-click='sortBy(3)'>Phone</th>
+                                      <th ng-click='sortBy(4)'>Gender</th>
+                                      <th ng-click='sortBy(5)'>Created At</th>
+                                    </tr>
+                                  </thead>
+                                  <tfoot>
+                                   <tr>
+                                      <th>Name</th>
+                                      <th>Email</th>
+                                      <th>Phone</th>
+                                      <th>Gender</th>
+                                      <th>Created At</th>
+                                    </tr>
+                                  </tfoot>
+                                  <tbody>
+                                    <tr ng-repeat="rows in dailyActiveUsersConcolatedData| orderBy : filterVariable :reverse">
+                                      <td>{{rows.userName}}</td>
+                                      <td>{{rows.userEmail}}</td>
+                                      <td>{{rows.userPhone}}</td>
+                                      <td>{{rows.userGender}}</td>
+                                      <td>{{rows.userCreatedAt}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                 <button class="btn btn-primary" export-to-csv-daily-active-users><i class="fa fa-download" aria-hidden="true"></i></button>
+                </div>
+           </div>
+           </div>
+  </div>
+
+</section>
+
+<!-- End of cards Section -->
+
+<!-- Start of Charts Section -->
+<section ng-controller="chartController">
+
+<!-- list of controlers -->
+  <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Charts</li>
+  </ol>
+      <!-- Area Chart Example-->
+   <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa fa-area-chart"></i>Daily Downloads</div>
+      <div class="card-body">
+        <canvas id="myAreaChart" width="100%" height="30" ng-click="addOnClick($event)" data-toggle="modal" data-target="#lineChartModal"></canvas>
+      </div>
+      <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+      <div class="row">
+        <div class="col-lg-8">
+          <!-- Example Bar Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-bar-chart"></i>Monthly Downloads</div>
+            <div class="card-body">
+              <canvas id="myBarChart"  ng-click="addOnClickOnBar($event)" data-toggle="modal" data-target="#barChartModal"></canvas>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <!-- Example Pie Chart Card-->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fa fa-pie-chart"></i> Pie Chart Example</div>
+            <div class="card-body">
+              <canvas id="myPieChart" ng-click="addOnClickOnPie($event)" data-toggle="modal" data-target="#pieChartModal"></canvas>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8">
+         <div class="card mb-3">
+          <div class="card-header">
+            <i class="fa fa-bar-chart"></i>Retention Rate</div>
+          <div class="card-body">
+            <canvas id="myBarChart1" width="100" height="50" ng-click="addOnClickOnBar1($event)" data-toggle="modal" data-target="#barChartModal1"></canvas>
+          </div>
+          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card mb-3">
+              <div class="card-header">
+                <i class="fa fa-pie-chart"></i>Age Groups Distribution </div>
+              <div class="card-body">
+                <canvas id="agePieChart" ng-click="addOnClickOnPie1($event)" data-toggle="modal" data-target="#ageGroupModal"></canvas>
+              </div>
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+      </div>
+       
+
+      </div>
+      <!--Line chart Details-->
+      <div id="lineChartModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Downloads Per Day</h4>
+                <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <i class="fa fa-table"></i> Data Table </div>
+                  <div class="card-body">
+                      <label>Row Count : </label> 
+                      <select ng-model="selectedPerPageValueLineChart" ng-change="perPageChange(selectedPerPageValueLineChart,1)">
+                        <option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option>
+                      </select>
+                  <div class="table-responsive">
+                   
+                    <table class="table table-bordered" id="daydataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th ng-click='sortBy(1)'>Name</th>
+                          <th ng-click='sortBy(2)'>Email</th>
+                          <th ng-click='sortBy(3)'>Phone</th>
+                          <th ng-click='sortBy(4)'>Gender</th>
+                          <th ng-click='sortBy(5)'>Login Mode</th>
+                          <th ng-click='sortBy(6)'>Created At</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                       <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Gender</th>
+                          <th>Login Mode</th>
+                          <th>Created At</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr ng-repeat="rows in lineChartConcolatedData | orderBy : filterVariable :reverse">
+                          <td>{{rows.userName}}</td>
+                          <td>{{rows.userEmail}}</td>
+                          <td>{{rows.userPhone}}</td>
+                          <td>{{rows.userGender}}</td>
+                          <td>{{rows.userLoginMode}}</td>
+                          <td>{{rows.userCreatedAt}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <button class="btn btn-primary" export-to-csv-day-users><i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!--BarChart chart Details-->
+      <div id="barChartModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Downloads Per Month</h4>
+                <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <i class="fa fa-table"></i> Data Table </div>
+                  <div class="card-body">
+                      <label>Row Count : </label> 
+                      <select ng-model="selectedPerPageValueBarChart" ng-change="perPageChange(selectedPerPageValueBarChart,2)">
+                        <option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option>
+                      </select>
+                  <div class="table-responsive">
+                   
+                    <table class="table table-bordered" id="monthdataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th ng-click='sortBy(1)'>Name</th>
+                          <th ng-click='sortBy(2)'>Email</th>
+                          <th ng-click='sortBy(3)'>Phone</th>
+                          <th ng-click='sortBy(4)'>Gender</th>
+                          <th ng-click='sortBy(5)'>Login Mode</th>
+                          <th ng-click='sortBy(6)'>Created At</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                       <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Gender</th>
+                          <th>Login Mode</th>
+                          <th>Created At</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr ng-repeat="rows in barChartConcolatedData | orderBy : filterVariable :reverse">
+                          <td>{{rows.userName}}</td>
+                          <td>{{rows.userEmail}}</td>
+                          <td>{{rows.userPhone}}</td>
+                          <td>{{rows.userGender}}</td>
+                          <td>{{rows.userLoginMode}}</td>
+                          <td>{{rows.userCreatedAt}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <button class="btn btn-primary" export-to-csv-month-users><i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Retention rate bar chart  -->
+   <div id="barChartModal1" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Retention Rate Data</h4>
+                <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <i class="fa fa-table"></i> Data Table </div>
+                  <div class="card-body">
+                      <label>Row Count : </label> 
+                      <select ng-model="selectedPerPageValueBarChart1" ng-change="perPageChange(selectedPerPageValueBarChart1,5)">
+                        <option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option>
+                      </select>
+                  <div class="table-responsive">
+                   
+                    <table class="table table-bordered" id="dataTableRetentionRate" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th ng-click='sortBy(1)'>Name</th>
+                          <th ng-click='sortBy(2)'>Email</th>
+                          <th ng-click='sortBy(3)'>Phone</th>
+                          <th ng-click='sortBy(4)'>Gender</th>
+                          <th ng-click='sortBy(5)'>Login Mode</th>
+                          <th ng-click='sortBy(6)'>Created At</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                       <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Gender</th>
+                          <th>Login Mode</th>
+                          <th>Created At</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr ng-repeat="rows in retentionRateDataConcolatedData | orderBy : filterVariable :reverse">
+                          <td>{{rows.userName}}</td>
+                          <td>{{rows.userEmail}}</td>
+                          <td>{{rows.userPhone}}</td>
+                          <td>{{rows.userGender}}</td>
+                          <td>{{rows.userLoginMode}}</td>
+                          <td>{{rows.userCreatedAt}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <button class="btn btn-primary" export-to-csv-retention-rate><i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gender data pie chart model -->
+  <div id="pieChartModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Downloads Per Month</h4>
+                <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <i class="fa fa-table"></i> Data Table </div>
+                  <div class="card-body">
+                      <label>Row Count : </label> 
+                      <select ng-model="selectedPerPageValuePieChart" ng-change="perPageChange(selectedPerPageValuePieChart,3)">
+                        <option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option>
+                      </select>
+                  <div class="table-responsive">
+                   
+                    <table class="table table-bordered" id="genderdataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th ng-click='sortBy(1)'>Name</th>
+                          <th ng-click='sortBy(2)'>Email</th>
+                          <th ng-click='sortBy(3)'>Phone</th>
+                          <th ng-click='sortBy(4)'>Gender</th>
+                          <th ng-click='sortBy(5)'>Login Mode</th>
+                          <th ng-click='sortBy(6)'>Created At</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                       <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Gender</th>
+                          <th>Login Mode</th>
+                          <th>Created At</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr ng-repeat="rows in pieChartConcolatedData | orderBy : filterVariable :reverse">
+                          <td>{{rows.userName}}</td>
+                          <td>{{rows.userEmail}}</td>
+                          <td>{{rows.userPhone}}</td>
+                          <td>{{rows.userGender}}</td>
+                          <td>{{rows.userLoginMode}}</td>
+                          <td>{{rows.userCreatedAt}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <button class="btn btn-primary" export-to-csv-gender-users ><i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Age group data pie chart model -->
+  <div id="ageGroupModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Age Group </h4>
+                <button type="button" class="close" data-dismiss="modal" style="float: right;">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="card mb-3">
+                <div class="card-header">
+                  <i class="fa fa-table"></i> Data Table </div>
+                  <div class="card-body">
+                      <label>Row Count : </label> 
+                      <select ng-model="selectedPerPageAgeValuePieChart" ng-change="perPageChange(selectedPerPageAgeValuePieChart,4)">
+                        <option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option>
+                      </select>
+                  <div class="table-responsive">
+                   
+                    <table class="table table-bordered" id="dataTableAgeGroup" width="100%" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th ng-click='sortBy(1)'>Name</th>
+                          <th ng-click='sortBy(2)'>Email</th>
+                          <th ng-click='sortBy(3)'>Phone</th>
+                          <th ng-click='sortBy(4)'>Gender</th>
+                          <th ng-click='sortBy(5)'>Login Mode</th>
+                          <th ng-click='sortBy(6)'>Created At</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                       <tr>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Gender</th>
+                          <th>Login Mode</th>
+                          <th>Created At</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+                        <tr ng-repeat="rows in pieChartConcolatedModelData | orderBy : filterVariable :reverse">
+                          <td>{{rows.userName}}</td>
+                          <td>{{rows.userEmail}}</td>
+                          <td>{{rows.userPhone}}</td>
+                          <td>{{rows.userGender}}</td>
+                          <td>{{rows.userLoginMode}}</td>
+                          <td>{{rows.userCreatedAt}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <button class="btn btn-primary" export-to-csv-age-group ><i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="vendor/jquery/jquery.min.js"></script> 
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/popper/popper.min.js"></script>

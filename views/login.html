@@ -1,0 +1,17 @@
+ <section class="section" ng-controller="loginFormController">
+  <div class="loginDiv">
+    <div class="page-header">Admin Panel</div>
+    <hr>
+    <div class="loginFields">
+      <form name="loginForm" ng-submit="login()">
+        <div class="loginField"><input class="form-control" type="text"  name="loginUserName" ng-model="loginUserName"  placeholder="Enter Your User Name" required>
+          <span ng-show="loginForm.loginUserName.$dirty && loginForm.loginUserName.$invalid"> User Name is not valid.</span>
+        </div>
+        <div class="loginField"><input class="form-control" type="password" name="loginPassword" ng-model="loginPassword" placeholder="Enter Your password" required>
+          <span ng-show="loginForm.loginPassword.$dirty && loginForm.loginPassword.$invalid"> Password is not valid.</span>
+        </div>
+        <div class="loginField"><input class="form-control btn btn-primary" type="submit"> </div>
+      </form>
+    </div>
+  </div>
+</section>

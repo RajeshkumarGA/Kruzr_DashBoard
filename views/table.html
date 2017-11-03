@@ -1,0 +1,43 @@
+<section ng-controller='tableCreateController' ng-init="showTables('Data/sampleData.csv')"> 
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i> Data Table </div>
+        <div class="card-body">
+          <label>Row Count : </label> <select ng-model="selectedPerPageValue" ng-change='perPageChange(selectedPerPageValue)'><option ng-repeat='countPerPage in counterArray'>{{countPerPage}}</option></select>
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th ng-click='sortBy(1)'>Name</th>
+                  <th ng-click='sortBy(2)'>Email</th>
+                  <th ng-click='sortBy(3)'>Phone</th>
+                  <th ng-click='sortBy(4)'>Gender</th>
+                  <th ng-click='sortBy(5)'>Login Mode</th>
+                  <th ng-click='sortBy(6)'>Created At</th>
+                </tr>
+              </thead>
+              <tfoot>
+               <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Gender</th>
+                  <th>Login Mode</th>
+                  <th>Created At</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                <tr ng-repeat="rows in Data | orderBy : filterVariable :reverse">
+                  <td>{{rows.userName}}</td>
+                  <td>{{rows.userName}}</td>
+                  <td>{{rows.userName}}</td>
+                  <td>{{rows.userName}}</td>
+                  <td>{{rows.loginmode}}</td>
+                  <td>{{rows.userName}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</section>
